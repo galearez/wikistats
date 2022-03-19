@@ -59,3 +59,14 @@
     <button type="submit">Search</button>
   </form>
 </header>
+
+{#if query !== undefined}
+  {#await handleUserSearchSubmit(query) then titleLinkPairs}
+    {#each titleLinkPairs as { title, link }}
+      <div>
+        {title}
+        <a href={link}>See in Wikipedia</a>
+      </div>
+    {/each}
+  {/await}
+{/if}
