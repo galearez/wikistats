@@ -28,7 +28,7 @@
     await fetch(apiReq)
       .then((res) => res.json())
       .then((data) => {
-        // the data return is an array which contains 4 elements:
+        // data is an array which contains 4 elements:
         // 0, is the search query passed to the API
         // 1, is an array with the page titles that matched the query, same size as 2 and 3
         // 2, is an array with empty string
