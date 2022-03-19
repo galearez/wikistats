@@ -12,9 +12,16 @@
     return s.toLocaleLowerCase().replace(/\s+/g, '_');
   }
 
+  type TitleLinkPair = {
+    title: string;
+    link: string;
+  };
+
   // this function make the request to the Wikipedia API, process the response and return the results
-  async function handleUserSearchSubmit(input: string): Promise<any[]> {
-    let titleLinkPairs: any[] = [];
+  async function handleUserSearchSubmit(
+    input: string
+  ): Promise<TitleLinkPair[]> {
+    let titleLinkPairs: TitleLinkPair[] = [];
     const apiReq =
       'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=10&namespace=0&search=' +
       input;
