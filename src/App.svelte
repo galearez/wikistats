@@ -3,14 +3,6 @@
   let query: string = undefined;
   // this variable control the input field for the search form
   let searchValue: string;
-  // function to follow the wikipedia query format
-  function regularize(s: string): string {
-    if (s === undefined || s === '') {
-      return undefined;
-    }
-
-    return s.toLocaleLowerCase().replace(/\s+/g, '_');
-  }
 
   type TitleLinkPair = {
     title: string;
@@ -47,7 +39,7 @@
   <form
     action="/"
     on:submit|preventDefault={() => {
-      query = regularize(searchValue);
+      query = searchValue;
     }}
   >
     <input
