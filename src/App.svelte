@@ -49,6 +49,21 @@
 
     return source;
   }
+
+  async function info(query: string) {
+    let title, touched, length;
+    await fetch(
+      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=info&titles=${query}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const id = Object.keys(data.query.pages);
+        ({ title, touched, length } = data.query.pages[id[0]]);
+      })
+      .catch(console.error);
+
+    return { title, touched, length };
+  }
 </script>
 
 <header>
@@ -84,5 +99,12 @@
     {#await thumbnail(page) then src}
       <img {src} alt="" />
     {/await}
+
+    {#await info(page) then { title, touched, length }}
+      <p>{title}</p>
+      <p>{touched}</p>
+      <p>{length}</p>
+    {/await}
+
   {/if}
 {/if}
