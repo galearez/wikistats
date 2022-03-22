@@ -4,7 +4,7 @@
   // this variable control the input field for the search form
   let searchValue: string;
   // this variable holds the user selected page to look to its stats
-  let page: string = '';
+  let page: string = undefined;
 
   type TitleLinkPair = {
     title: string;
@@ -33,6 +33,21 @@
       });
 
     return titleLinkPairs;
+  }
+
+  async function thumbnail(query: string) {
+    let source;
+    await fetch(
+      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=pageimages&piprop=thumbnail&titles=${query} `
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const id = Object.keys(data.query.pages);
+        ({ source } = data.query.pages[id[0]].thumbnail);
+      })
+      .catch(console.error);
+
+    return source;
   }
 </script>
 
@@ -64,4 +79,10 @@
       </div>
     {/each}
   {/await}
+
+  {#if page !== undefined}
+    {#await thumbnail(page) then src}
+      <img {src} alt="" />
+    {/await}
+  {/if}
 {/if}
