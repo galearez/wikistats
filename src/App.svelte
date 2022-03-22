@@ -64,6 +64,26 @@
 
     return { title, touched, length };
   }
+
+  async function views(query: string): Promise<number> {
+    let views = 0;
+    await fetch(
+      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=pageviews&titles=${query}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const id = Object.keys(data.query.pages);
+        const viewsRaw: string[] = Object.values(
+          data.query.pages[id[0]].pageviews
+        );
+        for (let i = 30; i < 59; i++) {
+          views += +viewsRaw[i];
+        }
+      })
+      .catch(console.error);
+
+    return views;
+  }
 </script>
 
 <header>
@@ -106,5 +126,8 @@
       <p>{length}</p>
     {/await}
 
+    {#await views(page) then views}
+      <p>{views}</p>
+    {/await}
   {/if}
 {/if}
