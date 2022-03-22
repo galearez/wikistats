@@ -3,6 +3,8 @@
   let query: string = undefined;
   // this variable control the input field for the search form
   let searchValue: string;
+  // this variable holds the user selected page to look to its stats
+  let page: string = '';
 
   type TitleLinkPair = {
     title: string;
@@ -58,6 +60,7 @@
       <div>
         {title}
         <a href={link}>See in Wikipedia</a>
+        <button on:click={() => (page = title)}>See stats</button>
       </div>
     {/each}
   {/await}
