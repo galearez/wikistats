@@ -84,6 +84,22 @@
 
     return views;
   }
+
+  async function langs(query: string) {
+    let langLinks = 0;
+    await fetch(
+      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=langlinks&lllimit=max&titles=${query}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const id = Object.keys(data.query.pages);
+        const langs: string[] = data.query.pages[id[0]].langlinks;
+        langLinks = langs.length;
+      })
+      .catch(console.error);
+
+    return langLinks;
+  }
 </script>
 
 <header>
@@ -128,6 +144,10 @@
 
     {#await views(page) then views}
       <p>{views}</p>
+    {/await}
+
+    {#await langs(page) then langLinks}
+      <p>{langLinks}</p>
     {/await}
   {/if}
 {/if}
