@@ -36,9 +36,9 @@
   }
 
   async function thumbnail(query: string) {
-    let source;
+    let source = '';
     await fetch(
-      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=pageimages&piprop=thumbnail&titles=${query} `
+      `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=pageimages&piprop=thumbnail&pilicense=any&titles=${query}`
     )
       .then((res) => res.json())
       .then((data) => {
