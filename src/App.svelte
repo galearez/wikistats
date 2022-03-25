@@ -1,8 +1,13 @@
 <script lang="ts">
-  import { query } from './app/store';
+  import { setContext } from 'svelte';
+  import { query, apiCtx } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
   // this variable holds the user selected page to look to its stats
   let page: string = undefined;
+
+  setContext(apiCtx, {
+    api: 'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop',
+  });
 
   // define the code to read the query store value and be aware of its changes
   let queryValue: string;

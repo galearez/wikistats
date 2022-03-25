@@ -1,5 +1,8 @@
-import { writable } from "svelte/store";
+import { readable, writable } from 'svelte/store';
 
 const query = writable<string>(undefined);
+const apiCtx = readable<Symbol>(undefined, () => {
+  Symbol();
+});
 
-export {query};
+export { query, apiCtx };
