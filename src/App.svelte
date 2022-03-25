@@ -1,10 +1,10 @@
 <script lang="ts">
   import { setContext } from 'svelte';
-  import { query, apiCtx } from './app/store';
+  import { query, apiCtx, page } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
-  // this variable holds the user selected page to look to its stats
-  let page: string = undefined;
 
+  // since this portion of the URL repeats on all of the reqs I hopted to make a
+  // context to be passed to the children components
   const apiURL =
     'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=';
   setContext(apiCtx, {
@@ -14,6 +14,10 @@
   // define the code to read the query store value and be aware of its changes
   let queryValue: string;
   query.subscribe((value) => (queryValue = value));
+
+  // this variable holds the user selected page to look to its stats
+  let pageTitle: string = undefined;
+  page.subscribe((value) => (pageTitle = value));
 
   type TitleLinkPair = {
     title: string;
@@ -119,7 +123,7 @@
       <div>
         {title}
         <a href={link}>See in Wikipedia</a>
-        <button on:click={() => (page = title)}>See stats</button>
+        <button on:click={() => ($page = title)}>See stats</button>
       </div>
     {/each}
   {/await}
