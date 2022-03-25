@@ -1,10 +1,13 @@
 <script lang="ts">
-  // this variable will contain the value to make the request
-  let query: string = undefined;
+  import { query } from './app/store';
   // this variable control the input field for the search form
   let searchValue: string;
   // this variable holds the user selected page to look to its stats
   let page: string = undefined;
+
+  // define the code to read the query store value and be aware of its changes
+  let queryValue: string;
+  query.subscribe((value) => (queryValue = value));
 
   type TitleLinkPair = {
     title: string;
@@ -120,8 +123,8 @@
   </form>
 </header>
 
-{#if query !== undefined}
-  {#await handleUserSearchSubmit(query) then titleLinkPairs}
+{#if queryValue !== undefined}
+  {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
     {#each titleLinkPairs as { title, link }}
       <div>
         {title}
