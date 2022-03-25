@@ -1,7 +1,6 @@
 <script lang="ts">
   import { query } from './app/store';
-  // this variable control the input field for the search form
-  let searchValue: string;
+  import HomeForm from './lib/HomeForm.svelte';
   // this variable holds the user selected page to look to its stats
   let page: string = undefined;
 
@@ -106,21 +105,7 @@
 </script>
 
 <header>
-  <h1>Wikipedia Stats</h1>
-  <form
-    action="/"
-    on:submit|preventDefault={() => {
-      query = searchValue;
-    }}
-  >
-    <input
-      type="search"
-      name="search"
-      placeholder="Enter some wikipedia page"
-      bind:value={searchValue}
-    />
-    <button type="submit">Search</button>
-  </form>
+  <HomeForm />
 </header>
 
 {#if queryValue !== undefined}
