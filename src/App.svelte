@@ -3,6 +3,7 @@
   import { query, apiCtx, page } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
   import PageStats from './lib/PageStats.svelte';
+  import SetPage from './lib/SetPage.svelte';
 
   // since this portion of the URL repeats on all of the reqs I hopted to make a
   // context to be passed to the children components
@@ -58,7 +59,7 @@
       <div>
         {title}
         <a href={link}>See in Wikipedia</a>
-        <button on:click={() => ($page = title)}>See stats</button>
+        <SetPage {title}>See stats</SetPage>
       </div>
     {/each}
   {/await}
