@@ -5,8 +5,10 @@
   // this variable holds the user selected page to look to its stats
   let page: string = undefined;
 
+  const apiURL =
+    'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=';
   setContext(apiCtx, {
-    api: 'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop',
+    api: apiURL,
   });
 
   // define the code to read the query store value and be aware of its changes
@@ -23,9 +25,7 @@
     input: string
   ): Promise<TitleLinkPair[]> {
     let titleLinkPairs: TitleLinkPair[] = [];
-    const apiReq =
-      'https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=10&namespace=0&search=' +
-      input;
+    const apiReq = `${apiURL}opensearch&limit=10&namespace=0&search=${input}`;
     await fetch(apiReq)
       .then((res) => res.json())
       .then((data) => {
