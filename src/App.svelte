@@ -64,7 +64,7 @@
     {/each}
   {/await}
 
-  {#if page !== undefined}
+  {#if pageTitle !== undefined}
     <PageStats />
   {/if}
 {/if}
