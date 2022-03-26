@@ -3,7 +3,7 @@
   import { query, apiCtx, page } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
   import PageStats from './lib/PageStats.svelte';
-  import SetPage from './lib/SetPage.svelte';
+  import SearchResults from './lib/SearchResults.svelte';
 
   // since this portion of the URL repeats on all of the reqs I hopted to make a
   // context to be passed to the children components
@@ -55,13 +55,7 @@
 
 {#if queryValue !== undefined}
   {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
-    {#each titleLinkPairs as { title, link }}
-      <div>
-        {title}
-        <a href={link}>See in Wikipedia</a>
-        <SetPage {title}>See stats</SetPage>
-      </div>
-    {/each}
+    <SearchResults {titleLinkPairs} />
   {/await}
 
   {#if pageTitle !== undefined}
