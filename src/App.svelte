@@ -54,11 +54,11 @@
 </header>
 
 {#if queryValue !== undefined}
-{#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
+  {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
     <SearchResults {titleLinkPairs} />
   {/await}
 
   {#if pageTitle !== undefined}
-    <PageStats />
+  <PageStats />
   {/if}
 {/if}

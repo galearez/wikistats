@@ -70,20 +70,22 @@
   }
 </script>
 
-{#await thumbnail(pageTitle) then src}
-  <img {src} alt="" />
-{/await}
+{#if page !== undefined}
+  {#await thumbnail(pageTitle) then src}
+    <img {src} alt="" />
+  {/await}
 
-{#await info(pageTitle) then { title, touched, length }}
-  <p>{title}</p>
-  <p>{touched}</p>
-  <p>{length}</p>
-{/await}
+  {#await info(pageTitle) then { title, touched, length }}
+    <p>{title}</p>
+    <p>{touched}</p>
+    <p>{length}</p>
+  {/await}
 
-{#await views(pageTitle) then views}
-  <p>{views}</p>
-{/await}
+  {#await views(pageTitle) then views}
+    <p>{views}</p>
+  {/await}
 
-{#await langs(pageTitle) then langLinks}
-  <p>{langLinks}</p>
-{/await}
+  {#await langs(pageTitle) then langLinks}
+    <p>{langLinks}</p>
+  {/await}
+{/if}
