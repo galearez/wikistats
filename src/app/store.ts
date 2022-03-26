@@ -5,5 +5,6 @@ const page = writable<string>(undefined);
 const apiCtx = readable<Symbol>(undefined, () => {
   Symbol();
 });
+const home = writable<boolean>(true);
 
-export { query, apiCtx, page };
+export { query, apiCtx, page, home };

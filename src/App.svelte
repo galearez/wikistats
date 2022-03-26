@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte';
-  import { apiCtx } from './app/store';
+  import { apiCtx, home } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
   import PageStats from './lib/PageStats.svelte';
   import SearchResults from './lib/SearchResults.svelte';
@@ -12,10 +12,17 @@
   setContext(apiCtx, {
     api: apiURL,
   });
+
+  // this store value will control which component is rendered
+  let isHome: boolean;
+  home.subscribe((value) => (isHome = value));
 </script>
 
-<header>
-  <HomeForm />
-</header>
-<SearchResults />
-<PageStats />
+{#if isHome}
+  <header>
+    <HomeForm />
+  </header>
+  <SearchResults />
+{:else}
+  <PageStats />
+{/if}
