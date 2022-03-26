@@ -1,6 +1,7 @@
+<!-- Just add the logic to render the right component and you can delete the wikipedia repo -->
 <script lang="ts">
   import { setContext } from 'svelte';
-  import { query, apiCtx, page } from './app/store';
+  import { query, apiCtx } from './app/store';
   import HomeForm from './lib/HomeForm.svelte';
   import PageStats from './lib/PageStats.svelte';
   import SearchResults from './lib/SearchResults.svelte';
@@ -16,10 +17,6 @@
   // define the code to read the query store value and be aware of its changes
   let queryValue: string;
   query.subscribe((value) => (queryValue = value));
-
-  // this variable holds the user selected page to look to its stats
-  let pageTitle: string = undefined;
-  page.subscribe((value) => (pageTitle = value));
 
   type TitleLinkPair = {
     title: string;
@@ -53,12 +50,8 @@
   <HomeForm />
 </header>
 
-{#if queryValue !== undefined}
-  {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
-    <SearchResults {titleLinkPairs} />
-  {/await}
+{#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
+  <SearchResults {titleLinkPairs} />
+{/await}
 
-  {#if pageTitle !== undefined}
-  <PageStats />
-  {/if}
-{/if}
+<PageStats />
