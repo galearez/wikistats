@@ -70,7 +70,7 @@
   }
 </script>
 
-{#if page !== undefined}
+{#if pageTitle !== undefined}
   {#await thumbnail(pageTitle) then src}
     <img {src} alt="" />
   {/await}
