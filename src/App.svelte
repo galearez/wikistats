@@ -18,11 +18,27 @@
   home.subscribe((value) => (isHome = value));
 </script>
 
-{#if isHome}
-  <header>
-    <HomeForm />
-  </header>
-  <SearchResults />
-{:else}
-  <PageStats />
-{/if}
+<main>
+  {#if isHome}
+    <header>
+      <HomeForm />
+    </header>
+    <SearchResults />
+  {:else}
+    <PageStats />
+  {/if}
+</main>
+
+<style>
+  main {
+    width: 100vw;
+    height: 100vh;
+  }
+  header {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(550px, 100%);
+  }
+</style>
