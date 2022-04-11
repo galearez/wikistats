@@ -7,4 +7,7 @@ const apiCtx = readable<Symbol>(undefined, () => {
 });
 const home = writable<boolean>(true);
 
-export { query, apiCtx, page, home };
+type HeaderClasses = 'initial' | 'results';
+const headerClass = writable<HeaderClasses>('initial');
+
+export { query, apiCtx, page, home, headerClass };

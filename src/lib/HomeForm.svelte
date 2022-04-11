@@ -1,15 +1,18 @@
 <script lang="ts">
-  import { query } from '../app/store';
+  import { query, headerClass } from '../app/store';
 
   let searchValue: string;
+  let hClass: string;
+  headerClass.subscribe((value) => (hClass = value));
 </script>
 
-<h1>Wikipedia <span>stats</span></h1>
+<h1 class={hClass}>Wikipedia <span>stats</span></h1>
 
 <form
   action="/"
   on:submit|preventDefault={() => {
     $query = searchValue;
+    $headerClass = 'results';
   }}
 >
   <input
@@ -23,31 +26,43 @@
 
 <style>
   h1 {
+    flex-shrink: 0;
+    align-self: center;
+    color: black;
+  }
+  .initial {
+    margin-bottom: 50px;
     font-size: 48px;
     text-align: center;
-    margin-bottom: 50px;
   }
+
+  .results {
+    font-size: 1rem;
+    text-align: left;
+  }
+
   h1 > span {
-    color: white;
+    color: #526166;
   }
   form {
-    width: max(550px, 100%);
+    width: min(550px, 100%);
+    background-color: #dedcc8;
     display: flex;
-    border: 2px solid black;
     flex-wrap: nowrap;
-    background-color: white;
     padding-left: 10px;
+    border: 2px solid black;
   }
   input[type='search'] {
-    border: none;
     width: min(550px, 100%);
+    background-color: #dedcc8;
     padding: 8px 0;
+    border: none;
     font-size: 1.1rem;
     outline: none;
   }
   button {
-    border: none;
     color: white;
     background-color: black;
+    border: none;
   }
 </style>
