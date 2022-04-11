@@ -40,10 +40,37 @@
   {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
     {#each titleLinkPairs as { title, link }}
       <div>
-        {title}
-        <a href={link}>See in Wikipedia</a>
+        <span>Stats for</span>
+        <h2>
+          {title}
+        </h2>
+        <a href={link} target="blank">{link}</a>
         <SetPage {title}>See stats</SetPage>
       </div>
     {/each}
   {/await}
 {/if}
+
+<style>
+  div {
+    padding: 8px 10px;
+    margin: 10px;
+    display: grid;
+    grid-template-areas:
+      'subtitle . .'
+      'title title title'
+      'stats wiki .';
+    gap: 10px;
+  }
+  span {
+    font-size: 0.8rem;
+  }
+  h2 {
+    grid-area: title;
+    font-size: 1.3rem;
+  }
+  a {
+    grid-area: stats;
+    font-size: 0.8rem;
+  }
+</style>
