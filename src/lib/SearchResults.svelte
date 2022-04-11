@@ -1,7 +1,7 @@
 <script lang="ts">
-  import SetPage from './SetPage.svelte';
   import { query, apiCtx } from '../app/store';
   import { getContext } from 'svelte';
+  import ResultCard from './ResultCard.svelte';
 
   const { api } = getContext(apiCtx);
 
@@ -39,38 +39,7 @@
 {#if queryValue !== undefined}
   {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
     {#each titleLinkPairs as { title, link }}
-      <div>
-        <span>Stats for</span>
-        <h2>
-          {title}
-        </h2>
-        <a href={link} target="blank">{link}</a>
-        <SetPage {title}>See stats</SetPage>
-      </div>
+      <ResultCard {title} {link} />
     {/each}
   {/await}
 {/if}
-
-<style>
-  div {
-    padding: 8px 10px;
-    margin: 10px;
-    display: grid;
-    grid-template-areas:
-      'subtitle . .'
-      'title title title'
-      'stats wiki .';
-    gap: 10px;
-  }
-  span {
-    font-size: 0.8rem;
-  }
-  h2 {
-    grid-area: title;
-    font-size: 1.3rem;
-  }
-  a {
-    grid-area: stats;
-    font-size: 0.8rem;
-  }
-</style>
