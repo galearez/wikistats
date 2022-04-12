@@ -1,6 +1,7 @@
 <script lang="ts">
   import { query } from '../app/store';
   import { location } from 'svelte-spa-router';
+  import { push } from 'svelte-spa-router';
 
   let searchValue: string;
   $: hClass = $location === '/' ? 'initial' : 'results';
@@ -12,11 +13,12 @@
   <form
     on:submit|preventDefault={() => {
       $query = searchValue;
+      push(`/search?q=${searchValue}`);
     }}
   >
     <input
       type="search"
-      name="search"
+      name="q"
       placeholder="e.g. Wikipedia"
       bind:value={searchValue}
     />
