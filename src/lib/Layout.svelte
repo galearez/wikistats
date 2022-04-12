@@ -1,15 +1,15 @@
 <script lang="ts">
   import { query } from '../app/store';
+  import { location } from 'svelte-spa-router';
 
   let searchValue: string;
-  export let hClass: string;
+  $: hClass = $location === '/' ? 'initial' : 'results';
 </script>
 
 <nav class={hClass}>
   <h1 class={hClass}>Wikipedia <span>stats</span></h1>
 
   <form
-    action="/"
     on:submit|preventDefault={() => {
       $query = searchValue;
     }}
@@ -29,6 +29,19 @@
 <footer>footer</footer>
 
 <style>
+  nav.initial {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(550px, 100%);
+  }
+  nav.results {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
   h1 {
     color: black;
   }
@@ -66,18 +79,5 @@
     color: white;
     background-color: black;
     border: none;
-  }
-  nav.initial {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(550px, 100%);
-  }
-  nav.results {
-    position: static;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
   }
 </style>
