@@ -6,8 +6,13 @@
   headerClass.subscribe((value) => (hClass = value));
   let show: boolean;
 
-  async function handleUserSearchSubmit(input: string): Promise<string[]> {
-    let titleLinkPairs: string[] = [];
+  type Title = {
+    match: string;
+    rest: string;
+  };
+
+  async function handleUserSearchSubmit(input: string): Promise<Title[]> {
+    let titleLinkPairs: Title[] = [];
     const apiReq = `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=8&namespace=0&search=${input}`;
     await fetch(apiReq)
       .then((res) => res.json())
@@ -18,7 +23,15 @@
         // 2, is an array with empty string
         // 3, is an array with the link to the pages that matched the query
         for (let i = 0, n = data[1].length; i < n; i++) {
-          titleLinkPairs.push(data[1][i]);
+          if (data[1][i].toLowerCase().indexOf(input) !== 0) {
+            let rest = data[1][i];
+            titleLinkPairs.push({ match: '', rest });
+            continue;
+          }
+
+          let match = data[1][i].slice(0, input.length);
+          let rest = data[1][i].slice(input.length);
+          titleLinkPairs.push({ match, rest });
         }
       });
 
@@ -59,8 +72,8 @@
 {#if searchValue !== undefined && searchValue !== '' && show}
   {#await handleUserSearchSubmit(searchValue) then arr}
     <div class="suggestions" on:click|stopPropagation>
-      {#each arr as title}
-        <div>{title}</div>
+      {#each arr as { match, rest }}
+        <div>{match}<span class="rest">{rest}</span></div>
       {/each}
     </div>
   {/await}
@@ -122,5 +135,8 @@
   }
   .suggestions > div {
     padding: 10px;
+  }
+  .rest {
+    font-weight: bold;
   }
 </style>
