@@ -4,9 +4,12 @@
   let searchValue: string;
   let hClass: string;
   headerClass.subscribe((value) => (hClass = value));
+  let show: boolean;
 </script>
 
 <h1 class={hClass}>Wikipedia <span>stats</span></h1>
+
+<svelte:window on:click={() => (show = false)} />
 
 <form
   action="/"
@@ -19,10 +22,16 @@
     type="search"
     name="search"
     placeholder="e.g. Wikipedia"
+    autocomplete="off"
     bind:value={searchValue}
+    on:click|stopPropagation={() => (show = true)}
   />
   <button type="submit">Search</button>
 </form>
+
+{#if searchValue !== undefined && searchValue !== '' && show}
+  <div class="suggestions {show}" on:click|stopPropagation>{searchValue}</div>
+{/if}
 
 <style>
   h1 {
@@ -45,7 +54,7 @@
     color: #526166;
   }
   form {
-    width: min(550px, 100%);
+    width: 100%;
     background-color: #dedcc8;
     display: flex;
     flex-wrap: nowrap;
@@ -64,5 +73,10 @@
     color: white;
     background-color: black;
     border: none;
+  }
+  .suggestions {
+    width: 100%;
+    background-color: #dedcc8;
+    padding: 8px 10px;
   }
 </style>
