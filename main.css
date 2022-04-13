@@ -135,6 +135,9 @@ table {
 }
 
 /* This are basic styles of the app */
+* {
+  box-sizing: border-box;
+}
 body {
   background-color: #deb1c3;
 }
