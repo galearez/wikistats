@@ -27,6 +27,14 @@
     on:click|stopPropagation={() => (show = true)}
   />
   <button type="submit">Search</button>
+  {#if searchValue !== undefined && searchValue !== ''}
+    <img
+      src="close.svg"
+      class="reset"
+      alt=""
+      on:click={() => (searchValue = '')}
+    />
+  {/if}
 </form>
 
 {#if searchValue !== undefined && searchValue !== '' && show}
@@ -73,6 +81,14 @@
     color: white;
     background-color: black;
     border: none;
+  }
+  .reset {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 106px;
+    right: 60px;
+    cursor: pointer;
   }
   .suggestions {
     width: 100%;
