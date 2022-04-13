@@ -5,6 +5,25 @@
   let hClass: string;
   headerClass.subscribe((value) => (hClass = value));
   let show: boolean;
+
+  async function handleUserSearchSubmit(input: string): Promise<string[]> {
+    let titleLinkPairs: string[] = [];
+    const apiReq = `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=8&namespace=0&search=${input}`;
+    await fetch(apiReq)
+      .then((res) => res.json())
+      .then((data) => {
+        // data is an array which contains 4 elements:
+        // 0, is the search query passed to the API
+        // 1, is an array with the page titles that matched the query, same size as 2 and 3
+        // 2, is an array with empty string
+        // 3, is an array with the link to the pages that matched the query
+        for (let i = 0, n = data[1].length; i < n; i++) {
+          titleLinkPairs.push(data[1][i]);
+        }
+      });
+
+    return titleLinkPairs;
+  }
 </script>
 
 <h1 class={hClass}>Wikipedia <span>stats</span></h1>
@@ -38,7 +57,13 @@
 </form>
 
 {#if searchValue !== undefined && searchValue !== '' && show}
-  <div class="suggestions {show}" on:click|stopPropagation>{searchValue}</div>
+  {#await handleUserSearchSubmit(searchValue) then arr}
+    <div class="suggestions" on:click|stopPropagation>
+      {#each arr as title}
+        <div>{title}</div>
+      {/each}
+    </div>
+  {/await}
 {/if}
 
 <style>
@@ -93,6 +118,9 @@
   .suggestions {
     width: 100%;
     background-color: #dedcc8;
-    padding: 8px 10px;
+    position: absolute;
+  }
+  .suggestions > div {
+    padding: 10px;
   }
 </style>
