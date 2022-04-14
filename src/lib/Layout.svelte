@@ -1,9 +1,9 @@
 <script lang="ts">
   import { query } from '../app/store';
-  import { location } from 'svelte-spa-router';
+  import { location, querystring } from 'svelte-spa-router';
   import { push } from 'svelte-spa-router';
 
-  let searchValue: string;
+  let searchValue: string = $querystring.replace(/q=/, '');
   $: hClass = $location === '/' ? 'initial' : 'results';
 </script>
 
