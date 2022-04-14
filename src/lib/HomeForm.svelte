@@ -7,6 +7,7 @@
   let show: boolean;
   let selection: number = -1;
   let results: string[];
+  $: reqQuery = '';
 
   type Title = {
     match: string;
@@ -49,9 +50,7 @@
         if (selection > 0) {
           selection--;
           searchValue = results[selection];
-        } else {
-          selection = -1;
-        }
+        } 
         break;
       case 'ArrowDown':
         if (selection < 7) {
@@ -62,6 +61,10 @@
       default:
         break;
     }
+  }
+
+  function handleInput() {
+    reqQuery = searchValue;
   }
 </script>
 
@@ -84,6 +87,7 @@
     bind:value={searchValue}
     on:click|stopPropagation={() => (show = true)}
     on:keydown={keyboardSelection}
+    on:input={handleInput}
   />
   <button type="submit">Search</button>
   {#if searchValue !== undefined && searchValue !== ''}
@@ -97,7 +101,7 @@
 </form>
 
 {#if searchValue !== undefined && searchValue !== '' && show}
-  {#await handleUserSearchSubmit(searchValue) then arr}
+  {#await handleUserSearchSubmit(reqQuery) then arr}
     <div class="suggestions" on:click|stopPropagation>
       {#each arr as { match, rest }}
         <div>{match}<span class="rest">{rest}</span></div>
