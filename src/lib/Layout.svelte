@@ -28,7 +28,7 @@
 
 <slot />
 
-<footer>footer</footer>
+<footer class={hClass}>footer</footer>
 
 <style>
   nav.initial {
@@ -81,5 +81,8 @@
     color: white;
     background-color: black;
     border: none;
+  }
+  footer.initial {
+    height: 100vh;
   }
 </style>
