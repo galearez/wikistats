@@ -29,7 +29,9 @@
         results = data[1];
         for (let i = 0, n = results.length; i < n; i++) {
           let title = results[i];
-          if (title.toLocaleLowerCase().indexOf(input) !== 0) {
+          if (
+            title.toLocaleLowerCase().indexOf(input.toLocaleLowerCase()) !== 0
+          ) {
             let rest = results[i];
             titleLinkPairs.push({ match: '', rest });
             continue;
