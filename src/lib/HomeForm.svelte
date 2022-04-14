@@ -5,6 +5,8 @@
   let hClass: string;
   headerClass.subscribe((value) => (hClass = value));
   let show: boolean;
+  let selection: number = -1;
+  let results: string[];
 
   type Title = {
     match: string;
@@ -13,6 +15,7 @@
 
   async function handleUserSearchSubmit(input: string): Promise<Title[]> {
     let titleLinkPairs: Title[] = [];
+    selection = -1;
     const apiReq = `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=8&namespace=0&search=${input}`;
     await fetch(apiReq)
       .then((res) => res.json())
@@ -22,20 +25,43 @@
         // 1, is an array with the page titles that matched the query, same size as 2 and 3
         // 2, is an array with empty string
         // 3, is an array with the link to the pages that matched the query
-        for (let i = 0, n = data[1].length; i < n; i++) {
-          if (data[1][i].toLowerCase().indexOf(input) !== 0) {
-            let rest = data[1][i];
+        results = data[1];
+        for (let i = 0, n = results.length; i < n; i++) {
+          let title = results[i];
+          if (title.toLocaleLowerCase().indexOf(input) !== 0) {
+            let rest = results[i];
             titleLinkPairs.push({ match: '', rest });
             continue;
           }
 
-          let match = data[1][i].slice(0, input.length);
-          let rest = data[1][i].slice(input.length);
+          let match = title.slice(0, input.length);
+          let rest = title.slice(input.length);
           titleLinkPairs.push({ match, rest });
         }
       });
 
     return titleLinkPairs;
+  }
+
+  function keyboardSelection(e: KeyboardEvent) {
+    switch (e.key) {
+      case 'ArrowUp':
+        if (selection > 0) {
+          selection--;
+          searchValue = results[selection];
+        } else {
+          selection = -1;
+        }
+        break;
+      case 'ArrowDown':
+        if (selection < 7) {
+          selection++;
+          searchValue = results[selection];
+        }
+        break;
+      default:
+        break;
+    }
   }
 </script>
 
@@ -57,6 +83,7 @@
     autocomplete="off"
     bind:value={searchValue}
     on:click|stopPropagation={() => (show = true)}
+    on:keydown={keyboardSelection}
   />
   <button type="submit">Search</button>
   {#if searchValue !== undefined && searchValue !== ''}
@@ -124,7 +151,7 @@
     width: 24px;
     height: 24px;
     position: absolute;
-    top: 106px;
+    bottom: 9px;
     right: 60px;
     cursor: pointer;
   }
