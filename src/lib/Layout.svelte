@@ -8,22 +8,24 @@
 </script>
 
 <nav class={hClass}>
-  <h1 class={hClass}>Wikipedia <span>stats</span></h1>
+  <div class={hClass}>
+    <h1 class={hClass}>Wikipedia <span>stats</span></h1>
 
-  <form
-    on:submit|preventDefault={() => {
-      $query = searchValue;
-      push(`/search?q=${searchValue}`);
-    }}
-  >
-    <input
-      type="search"
-      name="q"
-      placeholder="e.g. Wikipedia"
-      bind:value={searchValue}
-    />
-    <button type="submit">Search</button>
-  </form>
+    <form
+      on:submit|preventDefault={() => {
+        $query = searchValue;
+        push(`/search?q=${searchValue}`);
+      }}
+    >
+      <input
+        type="search"
+        name="q"
+        placeholder="e.g. Wikipedia"
+        bind:value={searchValue}
+      />
+      <button type="submit">Search</button>
+    </form>
+  </div>
 </nav>
 
 <slot />
@@ -32,13 +34,20 @@
 
 <style>
   nav.initial {
+    width: 100%;
+    height: 100vh;
+  }
+  nav.results {
+    height: auto;
+  }
+  div.initial {
     position: absolute;
     top: 20%;
     left: 50%;
     transform: translateX(-50%);
     width: min(550px, 100%);
   }
-  nav.results {
+  div.results {
     position: static;
     display: flex;
     flex-direction: row;
