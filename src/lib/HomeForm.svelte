@@ -50,7 +50,10 @@
         if (selection > 0) {
           selection--;
           searchValue = results[selection];
-        } 
+        } else {
+          selection = -1;
+          searchValue = reqQuery;
+        }
         break;
       case 'ArrowDown':
         if (selection < 7) {
