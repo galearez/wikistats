@@ -3,11 +3,17 @@
   import { location, querystring } from 'svelte-spa-router';
   import { push } from 'svelte-spa-router';
 
+  // this variable will hold the values in the URL to make searches
   let searchValue: string = $querystring.replace(/q=/, '');
+  // this reactive value is for styling purposes
   $: hClass = $location === '/' ? 'initial' : 'results';
+  // this variable show and hide the suggestions box
   let show: boolean;
+  // this variable is used to navigate through the suggestions
   let selection: number = -1;
+  // this is a copy of the suggestions array
   let results: string[];
+  // this reactive value is used to trigger the req to the search WikipediaAPI
   $: reqQuery = '';
 
   // this is a ref of the input search
@@ -15,7 +21,9 @@
 
   // this is the type of the results of the search req, is made like this for styling purposes
   type Title = {
+    // exact match with the user input, will go in light font
     match: string;
+    // part of the suggestion that doesn't match (can be the whole string), will go in bold font
     rest: string;
   };
 
