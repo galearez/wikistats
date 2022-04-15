@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { query } from '../app/store';
-  import { location, querystring } from 'svelte-spa-router';
-  import { push } from 'svelte-spa-router';
+  import { query, apiCtx } from '../app/store';
+  import { getContext } from 'svelte';
+  import { location, querystring, push } from 'svelte-spa-router';
+
+  let { api } = getContext(apiCtx);
 
   // this variable will hold the values in the URL to make searches
   let searchValue: string = $querystring.replace(/q=/, '');
@@ -31,7 +33,7 @@
   async function handleUserSearchs(input: string): Promise<Title[]> {
     let titleLinkPairs: Title[] = [];
     selection = -1;
-    const apiReq = `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=opensearch&limit=8&namespace=0&search=${input}`;
+    const apiReq = `${api}opensearch&limit=8&namespace=0&search=${input}`;
     await fetch(apiReq)
       .then((res) => res.json())
       .then((data) => {
