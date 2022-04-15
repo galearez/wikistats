@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { query, apiCtx } from '../app/store';
+  import { apiCtx } from '../app/store';
   import { getContext } from 'svelte';
   import { location, querystring, push } from 'svelte-spa-router';
 
@@ -100,7 +100,6 @@
     <form
       action="/"
       on:submit|preventDefault={() => {
-        $query = searchValue;
         push(`/search?q=${searchValue}`);
         inputSearch.blur();
       }}
