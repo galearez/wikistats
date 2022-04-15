@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page, home } from '../app/store';
+  import { push } from 'svelte-spa-router';
 
   function showPageStats(value: string) {
     page.set(value);
@@ -11,7 +12,13 @@
 </script>
 
 <div class="card">
-  <div class="title" on:click={() => showPageStats(title)}>
+  <div
+    class="title"
+    on:click={() => {
+      showPageStats(title);
+      push(`/p/${title}`);
+    }}
+  >
     <span>See stats of</span>
     <h2>
       {title}
