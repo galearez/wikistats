@@ -10,6 +10,10 @@
   let results: string[];
   $: reqQuery = '';
 
+  // this is a ref of the input search
+  let inputSearch: HTMLInputElement;
+
+  // this is the type of the results of the search req, is made like this for styling purposes
   type Title = {
     match: string;
     rest: string;
@@ -88,6 +92,7 @@
       on:submit|preventDefault={() => {
         $query = searchValue;
         push(`/search?q=${searchValue}`);
+        inputSearch.blur();
       }}
     >
       <input
@@ -96,6 +101,7 @@
         placeholder="e.g. Wikipedia"
         autocomplete="off"
         bind:value={searchValue}
+        bind:this={inputSearch}
         on:click|stopPropagation={() => (show = true)}
         on:keydown={keyboardNavigation}
         on:input={handleInput}
