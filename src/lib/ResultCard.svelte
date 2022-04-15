@@ -1,11 +1,5 @@
 <script lang="ts">
-  import { page, home } from '../app/store';
   import { push } from 'svelte-spa-router';
-
-  function showPageStats(value: string) {
-    page.set(value);
-    home.set(false);
-  }
 
   export let title: string;
   export let link: string;
@@ -15,7 +9,6 @@
   <div
     class="title"
     on:click={() => {
-      showPageStats(title);
       push(`/p/${title}`);
     }}
   >
