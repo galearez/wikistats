@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { query, apiCtx } from '../app/store';
+  import { apiCtx } from '../app/store';
   import { getContext, onMount } from 'svelte';
-  import ResultCard from '../lib/ResultCard.svelte';
   import { querystring } from 'svelte-spa-router';
+  import ResultCard from '../lib/ResultCard.svelte';
 
   const { api } = getContext(apiCtx);
 
   let queryValue: string;
-  onMount(() => query.set($querystring.replace(/q=/, '')));
-  query.subscribe((value) => (queryValue = value));
+  onMount(() => (queryValue = $querystring.replace(/q=/, '')));
 
   type TitleLinkPair = {
     title: string;
