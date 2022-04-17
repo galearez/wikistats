@@ -37,10 +37,19 @@
   }
 </script>
 
-{#if queryValue !== undefined}
-  {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
-    {#each titleLinkPairs as { title, link }}
-      <ResultCard {title} {link} />
-    {/each}
-  {/await}
-{/if}
+<main>
+  {#if queryValue !== undefined}
+    {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
+      {#each titleLinkPairs as { title, link }}
+        <ResultCard {title} {link} />
+      {/each}
+    {/await}
+  {/if}
+</main>
+
+<style>
+  main {
+    margin-left: 165px;
+    max-width: 800px;
+  }
+</style>
