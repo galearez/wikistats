@@ -148,6 +148,7 @@
   }
   nav.results {
     height: auto;
+    padding: 20px;
   }
   div.initial {
     position: absolute;
@@ -178,6 +179,9 @@
   }
   h1 > span {
     color: #526166;
+  }
+  div.results > form {
+    margin-left: 30px;
   }
   form {
     width: min(550px, 100%);
