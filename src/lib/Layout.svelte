@@ -124,17 +124,16 @@
         />
       {/if}
       <button type="submit">Search</button>
+      {#if searchValue !== undefined && searchValue !== '' && show}
+        {#await handleUserSearchs(reqQuery) then arr}
+          <div class="suggestions" on:click|stopPropagation>
+            {#each arr as { match, rest }}
+              <div>{match}<span class="rest">{rest}</span></div>
+            {/each}
+          </div>
+        {/await}
+      {/if}
     </form>
-
-    {#if searchValue !== undefined && searchValue !== '' && show}
-      {#await handleUserSearchs(reqQuery) then arr}
-        <div class="suggestions" on:click|stopPropagation>
-          {#each arr as { match, rest }}
-            <div>{match}<span class="rest">{rest}</span></div>
-          {/each}
-        </div>
-      {/await}
-    {/if}
   </div>
 </nav>
 
@@ -158,7 +157,7 @@
     width: min(550px, 100%);
   }
   div.results {
-    position: static;
+    position: initial;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -187,6 +186,7 @@
     flex-wrap: nowrap;
     padding-left: 10px;
     border: 2px solid black;
+    position: relative;
   }
   input[type='search'] {
     width: min(550px, 100%);
@@ -213,9 +213,11 @@
     right: 6px;
   }
   .suggestions {
-    width: 100%;
+    width: min(550px, 100%);
     background-color: #dedcc8;
     position: absolute;
+    top: 39px;
+    left: 0;
   }
   .suggestions > div {
     padding: 10px;
