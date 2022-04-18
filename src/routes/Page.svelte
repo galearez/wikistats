@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { getContext, onMount } from 'svelte';
+  import { getContext } from 'svelte';
   import { apiCtx } from '../app/store';
 
   // this variable holds the title of the page, it must be exactly title of one existen wikipedia page
-  let pageTitle: string;
   // once the component is mounted, it will get the value passed in the URL
-  onMount(() => params.title);
+  $: pageTitle = params.title;
 
   // this is the url string used for the requests
   const { api } = getContext(apiCtx);
