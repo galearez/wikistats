@@ -1,10 +1,14 @@
 <script lang="ts">
   import { apiCtx, query } from '../app/store';
-  import { getContext } from 'svelte';
-  import { location, push } from 'svelte-spa-router';
+  import { getContext, onMount } from 'svelte';
+  import { location, push, querystring } from 'svelte-spa-router';
 
   let { api } = getContext(apiCtx);
 
+  // this reactive value is used to trigger the req to the search WikipediaAPI for input suggestions
+  $: reqQuery = '';
+  // this method will pre-load suggestions if the user get for the first time in 'Search' using the url bar
+  onMount(() => (reqQuery = $querystring.replace(/q=/, '')));
   // this variable will hold the values in the URL to make searches
   let searchValue: string;
   query.subscribe((value) => (searchValue = value));
@@ -16,8 +20,6 @@
   let selection: number = -1;
   // this is a copy of the suggestions array
   let results: string[];
-  // this reactive value is used to trigger the req to the search WikipediaAPI
-  $: reqQuery = '';
 
   // this is a ref of the input search
   let inputSearch: HTMLInputElement;
