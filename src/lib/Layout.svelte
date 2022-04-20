@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { apiCtx } from '../app/store';
+  import { apiCtx, query } from '../app/store';
   import { getContext } from 'svelte';
-  import { location, querystring, push } from 'svelte-spa-router';
+  import { location, push } from 'svelte-spa-router';
 
   let { api } = getContext(apiCtx);
 
   // this variable will hold the values in the URL to make searches
-  let searchValue: string = $querystring.replace(/q=/, '');
+  let searchValue: string;
+  query.subscribe((value) => (searchValue = value));
   // this reactive value is for styling purposes
   $: hClass = $location === '/' ? 'initial' : 'results';
   // this variable show and hide the suggestions box

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { apiCtx } from '../app/store';
+  import { apiCtx, query } from '../app/store';
   import { getContext } from 'svelte';
   import { querystring } from 'svelte-spa-router';
   import ResultCard from '../lib/ResultCard.svelte';
@@ -9,6 +9,7 @@
   let queryValue: string;
   $: {
     queryValue = $querystring.replace(/q=/, '');
+    $query = queryValue;
   }
 
   type TitleLinkPair = {
