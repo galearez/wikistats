@@ -126,7 +126,9 @@
           on:click={() => (searchValue = '')}
         />
       {/if}
-      <button type="submit">Search</button>
+      <button type="submit">
+        <img src="search.svg" alt="" />
+      </button>
       {#if searchValue !== undefined && searchValue !== '' && show}
         {#await handleUserSearchs(reqQuery) then arr}
           <div class="suggestions" on:click|stopPropagation>
