@@ -110,7 +110,7 @@
       <input
         type="search"
         name="q"
-        placeholder="e.g. Wikipedia"
+        placeholder="Search..."
         autocomplete="off"
         bind:value={searchValue}
         bind:this={inputSearch}
@@ -192,25 +192,33 @@
   }
   form {
     width: min(550px, 100%);
-    background-color: #dedcc8;
+    background-color: #fff9ba;
     display: flex;
     flex-wrap: nowrap;
-    padding-left: 10px;
-    border: 2px solid black;
+    padding-left: 25px;
+    border: 1px solid black;
     position: relative;
+    border-radius: 50px;
   }
   input[type='search'] {
     width: min(550px, 100%);
-    background-color: #dedcc8;
+    background-color: #fff9ba;
     padding: 8px 0;
     border: none;
     font-size: 1.1rem;
     outline: none;
+    font-size: 1.5rem;
   }
   button {
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: transparent;
     border: none;
+    outline: none;
+    padding: 0 8px;
+  }
+  button > img {
+    width: 32px;
+    margin-top: 2px;
   }
   footer.initial {
     height: 100vh;
@@ -220,7 +228,7 @@
     height: 24px;
     position: relative;
     cursor: pointer;
-    top: 6px;
+    top: 11px;
     right: 6px;
   }
   .suggestions {
