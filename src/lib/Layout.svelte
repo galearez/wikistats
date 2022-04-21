@@ -170,6 +170,7 @@
   }
   h1 {
     color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   h1.initial {
     margin-bottom: 50px;
@@ -183,7 +184,8 @@
     align-self: center;
   }
   h1 > span {
-    color: #526166;
+    font-style: italic;
+    font-family: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
   }
   div.results > form {
     margin-left: 30px;
