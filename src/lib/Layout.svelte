@@ -110,7 +110,7 @@
       <input
         type="search"
         name="q"
-        placeholder="Search..."
+        placeholder="Search"
         autocomplete="off"
         bind:value={searchValue}
         bind:this={inputSearch}
@@ -233,9 +233,12 @@
   }
   .suggestions {
     width: min(550px, 100%);
-    background-color: #dedcc8;
+    padding: 8px 0 8px 20px;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: #c7d6ff;
     position: absolute;
-    top: 39px;
+    top: 58px;
     left: 0;
   }
   .suggestions > div {
