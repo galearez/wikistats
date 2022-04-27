@@ -186,6 +186,7 @@
   h1 > span {
     font-style: italic;
     font-family: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
+    font-weight: 300;
   }
   div.results > form {
     margin-left: 30px;
@@ -207,6 +208,7 @@
     border: none;
     font-size: 1.1rem;
     outline: none;
+    font-family: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
   }
   button {
