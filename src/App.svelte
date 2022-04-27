@@ -16,7 +16,7 @@
 
 <svelte:head>
   <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,300&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,300;1,500&display=swap"
     rel="stylesheet"
   />
 </svelte:head>
