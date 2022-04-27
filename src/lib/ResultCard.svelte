@@ -22,8 +22,8 @@
     <p />
   </div>
   <div class="extern-link">
-    <span>or Go to:</span>
-    <a href={link} target="blank">{link}</a>
+    Wikipedia
+    <img src="open.svg" alt="" />
   </div>
 </div>
 
@@ -42,7 +42,8 @@
     gap: 5px;
   }
   .title > h2 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-style: italic;
   }
   .title:hover {
     cursor: pointer;
@@ -50,13 +51,13 @@
   .title:hover > h2 {
     text-decoration: underline;
   }
-  a:hover {
-    text-decoration: underline;
+  .extern-link {
+    font-family: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  span,
-  a {
-    font-size: 0.8rem;
-    color: black;
-    text-decoration: none;
+  .extern-link > img {
+    width: 20px;
   }
 </style>
