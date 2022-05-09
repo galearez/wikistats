@@ -44,7 +44,7 @@
   {#if queryValue !== undefined}
     {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
       {#each titleLinkPairs as { title, link }}
-        <ResultCard {title} />
+        <ResultCard {title} {link} />
       {/each}
     {/await}
   {/if}

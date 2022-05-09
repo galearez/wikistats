@@ -7,6 +7,7 @@
   const { api } = getContext(apiCtx);
 
   export let title: string;
+  export let link: string;
 </script>
 
 <div class="card">
@@ -22,8 +23,7 @@
     <p />
   </div>
   <div class="extern-link">
-    Wikipedia
-    <img src="open.svg" alt="" />
+    <a href={link}>Read Wikipedia page</a>
   </div>
 </div>
 
