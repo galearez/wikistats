@@ -3,10 +3,10 @@
   import { getContext } from 'svelte';
   import { link } from 'svelte-spa-router';
 
-  const api = getContext(apiCtx);
+  const { api } = getContext(apiCtx);
 
   async function handleExtract(input: string): Promise<string> {
-    const apiReq = `${api}query&prop=description&titles=${input}`;
+    const apiReq = `${api}query&prop=extracts&explaintext=true&exchars=300&titles=${input}`;
     let extract: string;
     await fetch(apiReq)
       .then((res) => res.json())
@@ -24,17 +24,13 @@
 
 <div>
   <h2>{title}</h2>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum sit
-    earum est inventore cumque fuga aspernatur fugiat quibusdam quod, dicta
-    recusandae, modi exercitationem vitae reiciendis iste cupiditate, eos
-    quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
-    voluptates sunt necessitatibus fugit officiis, dolor cum, porro perspiciatis
-    deleniti dolorum odit error dolore, alias eveniet ea. Neque ut inventore
-    dignissimos.
-  </p>
-  <a href="/page/{title}" use:link>See stats</a>
-  <a href={pageURL}>Wikipedia</a>
+  {#await handleExtract(title) then extract}
+    <p>
+      {extract}
+    </p>
+  {/await}
+  <a href="/p/{title}" use:link>See stats</a>
+  <a href={pageURL}>Read page</a>
 </div>
 
 <style>
