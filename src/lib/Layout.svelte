@@ -204,12 +204,11 @@
   input[type='search'] {
     width: min(550px, 100%);
     background-color: #fff9ba;
-    padding: 8px 0;
-    border: none;
-    font-size: 1.1rem;
-    outline: none;
     font-family: 'IBM Plex Sans', Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
+    padding: 8px 0;
+    border: none;
+    outline: none;
   }
   button {
     color: black;
