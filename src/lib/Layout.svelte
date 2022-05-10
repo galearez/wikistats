@@ -92,6 +92,15 @@
   function handleInput() {
     reqQuery = searchValue;
   }
+
+  // I need to only send new req to search when the user input is a valid non-empty srting
+  function handleFormSubmit() {
+    if (searchValue === undefined || searchValue === '') {
+      return;
+    }
+    push(`/search?q=${searchValue}`);
+    inputSearch.blur();
+  }
 </script>
 
 <svelte:window on:click={() => (show = false)} />
@@ -100,13 +109,7 @@
   <div class={hClass}>
     <h1 class={hClass}>Wikipedia <span>stats</span></h1>
 
-    <form
-      action="/"
-      on:submit|preventDefault={() => {
-        push(`/search?q=${searchValue}`);
-        inputSearch.blur();
-      }}
-    >
+    <form action="/" on:submit|preventDefault={handleFormSubmit}>
       <input
         type="search"
         name="q"
