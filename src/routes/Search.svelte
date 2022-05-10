@@ -3,12 +3,13 @@
   import { getContext } from 'svelte';
   import { querystring } from 'svelte-spa-router';
   import ResultCard from '../lib/ResultCard.svelte';
+  import ExactMatch from '../lib/ExactMatch.svelte';
 
   const { api } = getContext(apiCtx);
 
   let queryValue: string;
   $: {
-    queryValue = $querystring.replace(/q=/, '');
+    queryValue = $querystring.replace(/q=/, '').replace(/%20/g, ' ');
     $query = queryValue;
   }
 
@@ -43,9 +44,17 @@
 <main>
   {#if queryValue !== undefined}
     {#await handleUserSearchSubmit(queryValue) then titleLinkPairs}
-      {#each titleLinkPairs as { title, link }}
-        <ResultCard {title} {link} />
-      {/each}
+      <div>
+        {#each titleLinkPairs as { title, link }}
+          <ResultCard {title} {link} />
+        {/each}
+      </div>
+      {#if titleLinkPairs[0].title.toLowerCase() === queryValue.toLowerCase()}
+        <ExactMatch
+          title={titleLinkPairs[0].title}
+          pageURL={titleLinkPairs[0].link}
+        />
+      {/if}
     {/await}
   {/if}
 </main>
@@ -53,6 +62,11 @@
 <style>
   main {
     margin-left: 165px;
-    max-width: 800px;
+    width: min(1000, 100%);
+    display: flex;
+    justify-content: space-between;
+  }
+  div {
+    width: min(100%, 700px);
   }
 </style>
